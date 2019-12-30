@@ -4,7 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 const errorHandler = require('./error');
-const validation = require('./middleware/validation');
+
 const gameRouter = require('./game/routes.game');
 
 const app = express();
