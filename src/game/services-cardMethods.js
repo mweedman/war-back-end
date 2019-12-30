@@ -11,6 +11,7 @@ let cardMethods = {
   cardNames: ['Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace', 'Two'],
   cards: [],
   generateCardValues: function(){
+    this.cards = [];
     for(let i = 0; i < this.suits.length; i++){
       for(let j = 0; j < 13; j++){
         this.cards.push([this.suits[i], j]);
@@ -25,6 +26,7 @@ let cardMethods = {
     return this.shuffle(this.generateCardValues());
   },
   splitHands: function(){
+    this.resetHands();
     let cardsArray = this.returnShuffledCards();
     let counter = 0;
     for(let i=0; i < cardsArray.length; i++){
@@ -43,6 +45,12 @@ let cardMethods = {
       }
     }
     return this.hands.player1;
+  },
+  resetHands: function(){
+    this.hands.player1 = [];
+    this.hands.player2 = [];
+    this.hands.player3 = [];
+    this.hands.player4 = [];
   },
   playerCounter: 2,
   nextMove: function(obj){

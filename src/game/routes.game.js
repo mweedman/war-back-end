@@ -6,12 +6,13 @@ const cardMethods = require('./services-cardMethods');
 const jsonBodyParser = express.json();
 
 const gameRouter = express.Router();
-let cards;
+const resetCards = () => cards = [];
 
 gameRouter
   .route('/')
   .get((req, res) => {
-    cards = cardMethods.splitHands();
+    resetCards();
+    let cards = cardMethods.splitHands();
     res.json({cards});
   });
 
@@ -25,4 +26,5 @@ gameRouter
     }
     res.status(200).json(nextMove);
   });
+
 module.exports = gameRouter;
