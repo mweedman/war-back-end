@@ -1,16 +1,17 @@
 const express = require('express');
-const cardMethods = require('./services.game');
+const cardMethods = require('./services-cardMethods');
 
 
 // const authentication = require('../middleware/validation');
 const jsonBodyParser = express.json();
 
 const gameRouter = express.Router();
+let cards;
 
 gameRouter
   .route('/')
   .get((req, res) => {
-    let cards = cardMethods.splitHands();
+    cards = cardMethods.splitHands();
     res.json({cards});
   });
 
@@ -22,6 +23,6 @@ gameRouter
       res.status(500)
         .send('Something went wrong');
     }
-    res.status(200).json({nextMove});
+    res.status(200).json(nextMove);
   });
 module.exports = gameRouter;
