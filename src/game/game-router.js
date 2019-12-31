@@ -1,5 +1,5 @@
 const express = require('express');
-const cardMethods = require('./services-cardMethods');
+const cardMethods = require('./card-services');
 
 
 // const authentication = require('../middleware/validation');

@@ -1,4 +1,4 @@
-const cardMethods = require('./services-cardMethods');
+const cardMethods = require('./card-services');
 
 const cardLogic = {
   

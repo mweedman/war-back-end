@@ -5,8 +5,8 @@ const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 const errorHandler = require('./error');
 
-const gameRouter = require('./game/routes.game');
-const loginRouter = require('./login/routes.login');
+const gameRouter = require('./game/game-router');
+const loginRouter = require('./login/login-router');
 const statsRouter = require('./statistics/routes.statistics');
 
 const app = express();
