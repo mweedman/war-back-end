@@ -6,6 +6,8 @@ const { NODE_ENV } = require('./config');
 const errorHandler = require('./error');
 
 const gameRouter = require('./game/routes.game');
+const loginRouter = require('./login/routes.login');
+const statsRouter = require('./statistics/routes.statistics');
 
 const app = express();
 
@@ -19,6 +21,8 @@ app.use(cors());
 
 
 app.use('/api/game', gameRouter);
+app.use('/api/login', loginRouter);
+app.use('/api/stats', statsRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello, boilerplate!');
