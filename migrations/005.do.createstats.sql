@@ -3,5 +3,5 @@ CREATE TABLE stats (
   userid INTEGER REFERENCES accounts(id) ON DELETE CASCADE,
   wins INTEGER,
   games_played INTEGER,
-  date_modified TIMESTAMP DEFAULT now() NOT NULL
+  date_modified TIMESTAMPTZ DEFAULT now() NOT NULL
 );
