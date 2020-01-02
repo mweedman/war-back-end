@@ -6,7 +6,8 @@ const loginRouter = express.Router();
 const jsonBodyParser = express.json();
 
 loginRouter
-  .post('/login', (req,res,next) => {
+  .post('/', jsonBodyParser, (req,res,next) => {
+    console.log(req.body);
     const { user_name, password } = req.body;
     const loginUser = { user_name, password };
     for (const [key, value] of Object.entries(loginUser))

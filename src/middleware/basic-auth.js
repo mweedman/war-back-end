@@ -1,4 +1,4 @@
-const loginService = require('../login/login-services');
+const LoginService = require('../login/login-services');
 
 function requireAuth(req, res, next) {
   const authToken = req.get('Authorization') || '';
@@ -10,13 +10,13 @@ function requireAuth(req, res, next) {
     basicToken = authToken.slice(7, authToken.length);
   }
 
-  const [tokenUserName, tokenPassword] = loginService.parseBasicToken(basicToken);
+  const [tokenUserName, tokenPassword] = LoginService.parseBasicToken(basicToken);
 
   if (!tokenUserName || !tokenPassword) {
     return res.status(401).json({error: 'Unauthorized request'});
   }
 
-  loginService.getUserWithUserName(
+  LoginService.getUserWithUserName(
     req.app.get('db'),
     tokenUserName
   )
@@ -24,7 +24,7 @@ function requireAuth(req, res, next) {
       if (!user) {
         return res.status(401).json({error: 'Unauthorized request'});
       }
-      return loginService.comparePasswords(tokenPassword, user.password)
+      return LoginService.comparePasswords(tokenPassword, user.password)
         .then(passwordsMatch => {
           if (!passwordsMatch) {
             return res.status(401).json({error: 'Unauthorized request'});
