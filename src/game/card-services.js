@@ -1,5 +1,3 @@
-const cardLogic = require('./card-logic');
-
 let cardMethods = {
   hands: {
     player1: [],

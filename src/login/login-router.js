@@ -3,6 +3,7 @@ const express = require('express');
 const loginService = require('./login-services');
 
 const loginRouter = express.Router();
+const jsonBodyParser = express.json();
 
 loginRouter
   .post('/login', (req,res,next) => {
