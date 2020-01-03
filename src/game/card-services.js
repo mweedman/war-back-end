@@ -69,6 +69,10 @@ let cardMethods = {
   },
   evaluatePlay: function(obj){
     console.log(obj);
+    // find the hand that contains the card
+    //remove card from the hand
+    //add card to current trick
+    
     // return this.nextMove(obj);
   }
 };
