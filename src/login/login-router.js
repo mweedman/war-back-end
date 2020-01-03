@@ -25,7 +25,7 @@ loginRouter
           return res.status(400).json({
             error: 'Incorrect user_name or password'
           });
-        return loginService.comparePasswords(loginUser.password, dbUser.password)
+        return loginService.comparePasswords(loginUser.password, dbUser.user_password)
           .then (compareMatch => {
             if (!compareMatch)
               return res.status(400).json({

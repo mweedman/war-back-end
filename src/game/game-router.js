@@ -1,22 +1,23 @@
 const express = require('express');
 const cardMethods = require('./card-services');
 
-
-// const authentication = require('../middleware/validation');
 const jsonBodyParser = express.json();
 const {requireAuth} = require('../middleware/jwt-auth');
 const gameRouter = express.Router();
 
+gameRouter.use(requireAuth);
+
 gameRouter
   .route('/')
-  .get(requireAuth, (req, res) => {
+  .get((req, res) => {
+    console.log(req.user);
     let cards = cardMethods.splitHands();
     res.json({cards});
   });
 
 gameRouter
   .route('/play')
-  .post(requireAuth, jsonBodyParser, (req, res) => {
+  .post(jsonBodyParser, (req, res) => {
     let nextMove = cardMethods.evaluatePlay(req.body);
     if(!nextMove){
       res.status(500)

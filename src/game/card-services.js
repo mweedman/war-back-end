@@ -23,6 +23,10 @@ let cardMethods = {
     return this.shuffle(this.generateCardValues());
   },
   splitHands: function(){
+    this.hands.player1 = [];
+    this.hands.player2 = [];
+    this.hands.player3 = [];
+    this.hands.player4 = [];
     let cardsArray = this.returnShuffledCards();
     let counter = 0;
     for(let i=0; i < cardsArray.length; i++){
@@ -64,7 +68,8 @@ let cardMethods = {
     //splice next user's hand.
   },
   evaluatePlay: function(obj){
-    return this.nextMove(obj);
+    console.log(obj);
+    // return this.nextMove(obj);
   }
 };
 

@@ -8,6 +8,7 @@ const errorHandler = require('./error');
 const gameRouter = require('./game/game-router');
 const loginRouter = require('./login/login-router');
 const statsRouter = require('./statistics/routes.statistics');
+const creationRouter = require('./create/create-account-router');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(cors());
 app.use('/api/game', gameRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/stats', statsRouter);
+app.use('/api/create', creationRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello, boilerplate!');
