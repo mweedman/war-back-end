@@ -7,14 +7,15 @@ const jsonBodyParser = express.json();
 
 creationRouter
   .post('/', jsonBodyParser, (req, res, next) => {
-    const { password, user_name, email_address } = req.body;
-    for (const field of ['password', 'user_name', 'email_address'])
+    console.log(req.body);
+    const { user_password, user_name, email_address } = req.body;
+    for (const field of ['user_password', 'user_name', 'email_address'])
       if (!req.body[field])
         return res.status(400).json({
           error: `Missing '${field}' in request body.`
         });
 
-    const passwordError = CreationServices.validatePassword(password);
+    const passwordError = CreationServices.validatePassword(user_password);
     
     if (passwordError)
       return res.status(400).json({ error: passwordError });
@@ -29,7 +30,7 @@ creationRouter
             error: 'Username already exists.'
           });
 
-        return CreationServices.hashPassword(password)
+        return CreationServices.hashPassword(user_password)
           .then(hashedPassword => {
             const newUser = {
               user_name,

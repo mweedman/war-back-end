@@ -8,8 +8,8 @@ TRUNCATE
   accounts
   RESTART IDENTITY CASCADE;
 
-INSERT INTO accounts (user_name, user_password, user_role)
+INSERT INTO accounts (user_name, user_password, email_address)
 VALUES
-  ('michael', '$2y$12$tCNdl4HLgWAzCPAAXLUk9O7oxWJi6dyyU6.DhqvpyVTcqMFVPG06i','user');
+  ('michael', '$2y$12$G68x5L3eVq6NxlOp4bihWOFtBd6vdYcLAs9EUnBTfQymQqQfLSz3e', 'michael.weedman@gmail.com');
 
 COMMIT;

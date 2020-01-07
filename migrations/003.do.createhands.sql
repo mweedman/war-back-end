@@ -3,7 +3,7 @@ CREATE TABLE hands (
   game_id INTEGER REFERENCES game(id) ON DELETE CASCADE NOT NULL,
   player1hand INTEGER[][] NOT NULL,
   player2hand INTEGER[][] NOT NULL,
-  player3hand INTEGER[][] NOT NULL,
-  player4hand INTEGER[][] NOT NULL,
+  player1chest INTEGER[][] NOT NULL,
+  player2chest INTEGER[][] NOT NULL,
   date_modified TIMESTAMPTZ DEFAULT now() NOT NULL
 );

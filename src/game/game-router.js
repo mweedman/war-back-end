@@ -10,20 +10,27 @@ gameRouter.use(requireAuth);
 gameRouter
   .route('/')
   .get((req, res) => {
-    console.log(req.user);
-    let cards = cardMethods.splitHands();
+    let cards = cardMethods.dealNewGame();
     res.json({cards});
   });
 
 gameRouter
-  .route('/play')
-  .post(jsonBodyParser, (req, res) => {
-    let nextMove = cardMethods.evaluatePlay(req.body);
-    if(!nextMove){
+  .route('/deal')
+  .get((req, res) => {
+    console.log(req.user);
+    let cards = cardMethods.dealNewGame();
+    res.json({cards});
+  });
+
+gameRouter
+  .route('/')
+  .post((req, res) => {
+    let cards = cardMethods.playCard();
+    if(!cards){
       res.status(500)
         .send('Something went wrong');
     }
-    res.status(200).json(nextMove);
+    res.status(200).json({cards});
   });
 
 module.exports = gameRouter;

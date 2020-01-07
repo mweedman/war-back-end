@@ -3,7 +3,7 @@ CREATE TABLE accounts (
   user_name TEXT NOT NULL UNIQUE,
   user_password TEXT NOT NULL,
   email_address TEXT NOT NULL,
-  user_role TEXT NOT NULL,
+  -- user_role TEXT NOT NULL DEFAULT 'user',
   date_created TIMESTAMPTZ DEFAULT now() NOT NULL,
   date_modified TIMESTAMPTZ DEFAULT now() NOT NULL
 );

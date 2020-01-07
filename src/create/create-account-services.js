@@ -38,12 +38,9 @@ const CreationServices = {
   },
   serializeUser(user) {
     return {
-      id: user.id,
       user_name: xss(user.user_name),
       user_role: 'user',
-      email_address: xss(user.email_address),
-      date_created: new Date(user.date_created),
-      date_modified: new Date(user.date_modified)
+      email_address: xss(user.email_address)
     };
   }
 };
