@@ -44,7 +44,11 @@ let cardMethods = {
     return this.hands.player1;
   },
   playCard: function(){
-    if (this.hands.player1.length === 0 || this.hands.player2.length === 0){
+    if (this.hands.player1.length === 0 && this.chest.player1.length === 0) {
+      return this.player2Wins();
+    } else if (this.hands.player2.length === 0 && this.chest.player2.length === 0) {
+      return this.player1Wins();
+    } else if (this.hands.player1.length === 0 || this.hands.player2.length === 0){
       this.shuffleChest();
       return this.hands.player1;
     }
@@ -71,8 +75,7 @@ let cardMethods = {
     } else if(play1[1] === play2[1]){
       console.log('WARRRRRRRR');
       if(this.hands.player1.length < 3 || this.hands.player2.length < 3){
-        this.shuffleChest;
-        return this.hands.player1;
+        this.shuffleChest();
       } 
       for(let i= 0; i < 3; i++){
         player1War.push(this.hands.player1[i]);
@@ -91,10 +94,18 @@ let cardMethods = {
     } else {
       this.chest.player2.push(...pot);
     }
-    console.log('player1chest: ',this.chest.player1);
-    console.log('player2chest: ',this.chest.player2);
+    console.log('player1chest: ',this.chest.player1.length);
+    console.log('player2chest: ',this.chest.player2.length);
   },
-  shuffleChest: function(){
+  player1Wins: function() {
+    let obj = { message: 'player 1 wins' };
+    return obj;
+  },
+  player2Wins: function() {
+    let obj = { message: 'player 2 wins' };
+    return obj;
+  },
+  shuffleChest: function() {
     //shuffle chests
     const chest1 = this.chest.player1;
     const shuffledChest1 = this.returnShuffledCards(chest1);
@@ -107,10 +118,10 @@ let cardMethods = {
     this.hands.player1.push(...shuffledChest1);
     this.chest.player1.splice(0, this.chest.player1.length);
     this.chest.player1 = [];
-    console.log('Player 1 Hand: ', this.hands.player1);
+    console.log('Player 1 Hand: ', this.hands.player1.length);
 
     this.hands.player2.push(...shuffledChest2);
-    console.log('Player 2 Hand: ', this.hands.player2);
+    console.log('Player 2 Hand: ', this.hands.player2.length);
     this.chest.player2.splice(0, this.chest.player2.length);
     this.chest.player2 = [];
   },
