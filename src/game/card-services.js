@@ -8,7 +8,8 @@ let cardMethods = {
     player2: []
   },
   warPot: [],
-  suits: ['spades', 'clubs', 'diamonds', 'hearts'],
+  suits: [1, 2, 3, 4],
+  suitsNames: ['spades', 'clubs', 'diamonds', 'hearts'],
   cardNames: ['Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace', 'Two'],
   cards: [],
   generateCardValues: function() {
@@ -41,7 +42,11 @@ let cardMethods = {
         this.hands.player2.push(cardsArray[i]);
         counter++;
       }}
-    return this.hands.player1;
+    const resObj = {
+      handLength1: this.hands.player1.length,
+      handLength2: this.hands.player2.length
+    };
+    return resObj;
   },
   playCard: function(){
     if (this.hands.player1.length === 0 && this.chest.player1.length === 0) {
@@ -65,7 +70,16 @@ let cardMethods = {
     console.log('Pot: ', pot);
     //send cards to evaluate
     this.evaluatePlay(player1Play, player2Play, pot);
-    return this.hands.player1;
+    const resObj = {
+      pot: pot,
+      chest1: this.chest.player1,
+      warpot: this.warPot,
+      handLength1: this.hands.player1.length,
+      handLength2: this.hands.player2.length,
+      chestLength1: this.chest.player1.length,
+      chestLength2: this.chest.player2.length
+    };
+    return resObj;
   },
   evaluatePlay: function(play1, play2, pot){
     let player1War = [];
@@ -125,10 +139,10 @@ let cardMethods = {
     this.chest.player2.splice(0, this.chest.player2.length);
     this.chest.player2 = [];
   },
-  cardsIntoDb: function(db, cards) {
+  cardsIntoTrick: function(db, card1, card2) {
     return db 
-      .insert(cards)
-      .into('game')
+      .insert(card1)
+      .into('tricks')
       .returning('*')
       .then(([cards]) => cards);
   },
