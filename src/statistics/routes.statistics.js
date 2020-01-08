@@ -11,7 +11,6 @@ statisticsRouter
   });
 
 statisticsRouter
-  //Will automatically update database with user statistics after each game played?
   .route('/update')
   .post();
 

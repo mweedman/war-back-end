@@ -12,7 +12,7 @@ function requireAuth(req, res, next) {
 
   try {
     const payload = LoginService.verifyJwt(bearerToken);
-
+    req.payload = payload;
     LoginService.getUserWithUserName(
       req.app.get('db'),
       payload.sub

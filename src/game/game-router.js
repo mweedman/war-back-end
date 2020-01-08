@@ -10,22 +10,18 @@ gameRouter.use(requireAuth);
 gameRouter
   .route('/')
   .get((req, res) => {
-    let cards = cardMethods.dealNewGame();
-    res.json({cards});
-  });
-
-gameRouter
-  .route('/deal')
-  .get((req, res) => {
-    console.log(req.user);
-    let cards = cardMethods.dealNewGame();
+    let db = req.app.get('db');
+    let user_id = req.payload.user_id;
+    let cards = cardMethods.dealNewGame(db, user_id);
     res.json({cards});
   });
 
 gameRouter
   .route('/')
   .post((req, res) => {
-    let cards = cardMethods.playCard();
+    let db = req.app.get('db');
+    let user_id = req.payload.user_id;
+    let cards = cardMethods.playCard(db, user_id);
     if(!cards){
       res.status(500)
         .send('Something went wrong');
