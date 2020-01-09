@@ -3,7 +3,7 @@ CREATE TABLE tricks (
   game_id INTEGER REFERENCES game(id) ON DELETE CASCADE NOT NULL,
   play1 INTEGER[] NOT NULL,
   play2 INTEGER[] NOT NULL,
-  pot INTEGER[][],
-  war_pot INTEGER[][],
+  pot INTEGER[][] NOT NULL,
+  war_pot INTEGER[][] DEFAULT NULL,
   date_modified TIMESTAMPTZ DEFAULT now() NOT NULL
 ); 
