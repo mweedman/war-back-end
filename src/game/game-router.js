@@ -1,7 +1,6 @@
 const express = require('express');
 const cardMethods = require('./card-services');
 
-const jsonBodyParser = express.json();
 const {requireAuth} = require('../middleware/jwt-auth');
 const gameRouter = express.Router();
 
@@ -21,11 +20,13 @@ gameRouter
   .post((req, res) => {
     let db = req.app.get('db');
     let user_id = req.payload.user_id;
-    let cards = cardMethods.playCard(db, user_id);
+    let cards = cardMethods.returnPlayCard(db, user_id);
+    console.log(cards);
     if(!cards){
       res.status(500)
         .send('Something went wrong');
     }
+    console.log('cards: ', cards);
     res.status(200).json({cards});
   });
 
