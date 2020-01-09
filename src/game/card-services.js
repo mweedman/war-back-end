@@ -76,7 +76,7 @@ let cardMethods = {
     } else if (this.hands.player2.length === 0 && this.chest.player2.length === 0) {
       return this.player1Wins(db, user_id);
     } else if (this.hands.player1.length === 0 || this.hands.player2.length === 0){
-      this.shuffleChest();
+      this.shuffleChest(db, user_id);
       return this.hands.player1;
     }
     //play card
@@ -92,7 +92,7 @@ let cardMethods = {
     this.pot = [...this.warPot, player1Play, player2Play];
     
     //send cards to evaluate
-    this.evaluatePlay(player1Play, player2Play, this.pot, user_id, db, game_id);
+    this.evaluatePlay(player1Play, player2Play, this.pot, user_id, db);
     const resObj = {
       pot: this.pot,
       chest1: this.chest.player1,
@@ -101,7 +101,6 @@ let cardMethods = {
       handLength2: this.hands.player2.length,
       chestLength1: this.chest.player1.length,
       chestLength2: this.chest.player2.length,
-      game_id: game_id
     };
     
     // const trickObj = {
@@ -113,18 +112,20 @@ let cardMethods = {
     return resObj;
   },
 
-  evaluatePlay: function(play1, play2, pot, user_id, db, game_id){
+  evaluatePlay: function(play1, play2, pot, user_id, db){
     let player1War = [];
     let player2War = []; 
     if (play1[1] > play2[1]){
       this.chest.player1.push(...pot);
-      this.dbCreateTrick(db, game_id);
+      this.getGameId(db, user_id)
+        .then(game_id => 
+          this.dbCreateTrick(db, game_id));
       this.warPot = [];
       return this.chest.player1;
     } else if(play1[1] === play2[1]){
       console.log('WARRRRRRRR');
       if(this.hands.player1.length < 3 || this.hands.player2.length < 3){
-        this.shuffleChest();
+        this.shuffleChest(db, user_id);
       } 
       for(let i= 0; i < 3; i++){
         player1War.push(this.hands.player1[i]);
@@ -141,7 +142,8 @@ let cardMethods = {
       this.playCard(db, user_id);      
     } else {
       this.chest.player2.push(...pot);
-      this.getGameId(db, user_id).then(game_id => this.this.dbCreateTrick(db, game_id));
+      this.getGameId(db, user_id)
+        .then(game_id => this.dbCreateTrick(db, game_id));
       this.warPot = [];
       return this.chest.player2;
     }
@@ -159,7 +161,7 @@ let cardMethods = {
     return resObj;
   },
 
-  shuffleChest: function() {
+  shuffleChest: function(db,user_id) {
     //shuffle chests
     const chest1 = this.chest.player1;
     const shuffledChest1 = this.returnShuffledCards(chest1);
@@ -173,6 +175,7 @@ let cardMethods = {
     this.hands.player2.push(...shuffledChest2);
     this.chest.player2.splice(0, this.chest.player2.length);
     this.chest.player2 = [];
+    this.playCard(db,user_id);
   },
 
   //All DB Functions//

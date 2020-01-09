@@ -20,7 +20,7 @@ gameRouter
   .post((req, res) => {
     let db = req.app.get('db');
     let user_id = req.payload.user_id;
-    let cards = cardMethods.returnPlayCard(db, user_id);
+    let cards = cardMethods.playCard(db, user_id);
     console.log(cards);
     if(!cards){
       res.status(500)
