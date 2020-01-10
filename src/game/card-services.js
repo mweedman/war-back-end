@@ -77,7 +77,6 @@ let cardMethods = {
       return this.player1Wins(db, user_id);
     } else if (this.hands.player1.length === 0 || this.hands.player2.length === 0){
       this.shuffleChest(db, user_id);
-      return this.hands.player1;
     }
     //play card
     const player1Play = this.hands.player1[0];
@@ -175,6 +174,7 @@ let cardMethods = {
     this.hands.player2.push(...shuffledChest2);
     this.chest.player2.splice(0, this.chest.player2.length);
     this.chest.player2 = [];
+
     this.playCard(db,user_id);
   },
 
