@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha --require test/setup.js",
     "migrate": "postgrator --config postgrator-config.js",
+    "migrate:production": "env SSL=true DATABASE_URL=postgres://zwvgwosrjhpqga:5e9f7669b6c4ceab1cce303b62c6bbfc43fab190d3e6f97663bb77f19dee047f@ec2-174-129-33-2.compute-1.amazonaws.com:5432/d68gsgsltdh7o6 npm run migrate",
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
     "predeploy": "npm audit",
