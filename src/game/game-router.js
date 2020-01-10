@@ -21,12 +21,10 @@ gameRouter
     let db = req.app.get('db');
     let user_id = req.payload.user_id;
     let cards = cardMethods.playCard(db, user_id);
-    console.log(cards);
     if(!cards){
       res.status(500)
         .send('Something went wrong');
     }
-    console.log('cards: ', cards);
     res.status(200).json({cards});
   });
 

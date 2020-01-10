@@ -149,13 +149,13 @@ let cardMethods = {
   },
 
   player1Wins: function(db, user_id) {
-    let resObj = { message: 'player 1 wins' };
+    let resObj = { message: 'You win!' };
     this.updateWins(db, user_id);
     return resObj;
   },
 
   player2Wins: function(db, user_id) {
-    let resObj = { message: 'player 2 wins' };
+    let resObj = { message: 'You Lose! Better luck next time!' };
     this.updateGames(db, user_id);
     return resObj;
   },
