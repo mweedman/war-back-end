@@ -51,7 +51,6 @@ let cardMethods = {
         counter++;
       }}
 
-    this.dbCreateStats(db, user);
     this.dbDeleteUserGames(db, user)
       .then(([game])=> {
         game;
@@ -227,14 +226,6 @@ let cardMethods = {
       .catch(error => error);
   },
   
-  dbCreateStats(db, userid) {
-    return db('stats')
-      .insert({userid})
-      .returning('*')
-      .then(([stats]) => stats)
-      .catch(error => error);
-  },
-
   updateHands(db, game_id) {
     let id;
     return db

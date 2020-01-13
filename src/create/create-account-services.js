@@ -42,7 +42,14 @@ const CreationServices = {
       user_role: 'user',
       email_address: xss(user.email_address)
     };
-  }
+  },
+  dbCreateStats(db, userid) {
+    return db('stats')
+      .insert({userid})
+      .returning('*')
+      .then(([stats]) => stats)
+      .catch(error => error);
+  },
 };
 
 module.exports = CreationServices;
